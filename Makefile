@@ -1,4 +1,4 @@
-EF		= ['_test']
+EF		= ['_main', '_initializeParticleSystem', '_getParticles']
 EERM	= ['ccall','cwrap']
 
 clean: compiled.js compiled.wasm

@@ -1,4 +1,8 @@
 Module.onRuntimeInitialized = () => {
-  const test = Module.cwrap('test', 'number', ['number']);
-  console.log(test(2));
-}
+  const initializeParticleSystem = Module.cwrap('initializeParticleSystem', null, [null]);
+  const getParticles = Module.cwrap('getParticles', 'number', [null]);
+
+  initializeParticleSystem();
+  console.log(getParticles());
+};
+
