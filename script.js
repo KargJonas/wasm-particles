@@ -1,11 +1,25 @@
 const cnv = document.querySelector('canvas');
 const ctx = cnv.getContext('2d');
 
+function checkPerformance(fn, runs = 1) {
+  let total = 0;
+
+  for (let i = 0; i < runs; i++) {
+    const t0 = performance.now();
+    fn();
+    const t1 = performance.now();
+    total += (t1 - t0);
+  }
+
+  console.log(total / runs);
+}
+
 Module.onRuntimeInitialized = () => {
   const initializeParticleSystem = Module.cwrap('initializeParticleSystem', null, [null]);
   const getParticleArrayPointer = Module.cwrap('getParticleArrayPointer', 'number', [null]);
   const getParticleArraySize = Module.cwrap('getParticleArraySize', 'number', [null]);
   const getParticleStructSize = Module.cwrap('getParticleStructSize', 'number', [null]);
+  const updateParticles = Module.cwrap('updateParticles', null, [null]);
 
   initializeParticleSystem();
 
@@ -30,16 +44,23 @@ Module.onRuntimeInitialized = () => {
   }
 
   function drawParticles() {
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
     ctx.beginPath();
-    
+
     for (let particle of particles) {
-      ctx.moveTo(...particle);
-      ctx.arc(...particle, 8, 0, 7);
+      ctx.moveTo(particle[0], particle[1]);
+      ctx.arc(particle[0], particle[1], 3, 0, 7);
     }
 
     ctx.fill();
   }
 
-  getParticlePositions();
-  drawParticles();
+  function update() {
+    requestAnimationFrame(update);
+    updateParticles();
+    getParticlePositions();
+    drawParticles();
+  }
+
+  update();
 };
