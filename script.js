@@ -1,6 +1,8 @@
 const cnv = document.querySelector('canvas');
 const ctx = cnv.getContext('2d');
 
+const PARTICLE_SIZE = 6;
+
 function checkPerformance(fn, runs = 1) {
   let total = 0;
 
@@ -43,13 +45,21 @@ Module.onRuntimeInitialized = () => {
     }
   }
 
-  function drawParticles() {
+  function fastDraw() {
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
+
+    for (let particle of particles) {
+      ctx.fillRect(particle[0], particle[1], PARTICLE_SIZE, PARTICLE_SIZE);
+    }
+  }
+
+  function draw() {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     ctx.beginPath();
 
     for (let particle of particles) {
       ctx.moveTo(particle[0], particle[1]);
-      ctx.arc(particle[0], particle[1], 3, 0, 7);
+      ctx.arc(particle[0], particle[1], PARTICLE_SIZE, 0, 7);
     }
 
     ctx.fill();
@@ -59,7 +69,8 @@ Module.onRuntimeInitialized = () => {
     requestAnimationFrame(update);
     updateParticles();
     getParticlePositions();
-    drawParticles();
+    draw();
+    // fastDraw();
   }
 
   update();
