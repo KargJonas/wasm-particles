@@ -36,8 +36,8 @@ void initializeParticleSystem() {
     };
 
     struct Vector initialVelocity = {
-      (float)(rand() % 100 - 50) / 50.0,
-      (float)(rand() % 100 - 50) / 50.0
+      (float)(rand() % 100 - 50) / 70.0,
+      (float)(rand() % 100 - 50) / 70.0
     };
 
     struct Particle newParticle = {
@@ -49,21 +49,26 @@ void initializeParticleSystem() {
   }
 }
 
-struct Vector addVector(
-  struct Vector vectorA,
-  struct Vector vectorB
-) {
-  vectorA.x += vectorB.x;
-  vectorA.y += vectorB.y;
-  return vectorA;
-}
-
 void updateParticles() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {
-    particles[i].position = addVector(particles[i].position, particles[i].velocity);
-  }
+    #define particle particles[i]
 
-  printf("update\n");
+    // Basic wall collision detection
+
+    particle.position.x += particle.velocity.x;
+
+    if (particle.position.x < 0 || particle.position.x > BOUNDS_X) {
+      particle.position.x -= particle.velocity.x;
+      particle.velocity.x *= -1;
+    }
+
+    particle.position.y += particle.velocity.y;
+
+    if (particle.position.y < 0 || particle.position.y > BOUNDS_Y) {
+      particle.position.y -= particle.velocity.y;
+      particle.velocity.y *= -1;
+    }
+  }
 }
 
 // Returns the location of the particle array
