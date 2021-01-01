@@ -2,9 +2,9 @@
 #include <time.h>
 #include <stdio.h>
 
-#define PARTICLE_COUNT 50
-#define BOUNDS_X 500
-#define BOUNDS_Y 500
+#define PARTICLE_COUNT 500
+#define BOUNDS_X 800
+#define BOUNDS_Y 800
 
 struct Vector {
   float x;

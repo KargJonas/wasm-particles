@@ -10,6 +10,8 @@
 #define ELECTROMAG_CONST 10
 #define MAX_FORCE .1
 #define ELASTICITY 0.3
+#define PARTICLE_DIAMETER 6
+#define FRICTION 0.90
 
 int main(int argc, char ** argv) {
   time_t current_time;
@@ -30,7 +32,10 @@ void applyForce(struct Particle * particleA, struct Particle * particleB) {
     pow(AB.y, 2)
   );
 
-  float force = ELECTROMAG_CONST * particleA->charge * particleB->charge / pow(distance, 2);
+  // No force applied if too close
+  if (distance < PARTICLE_DIAMETER) return;
+
+  float force = ELECTROMAG_CONST * -particleA->charge * particleB->charge / pow(distance, 2);
   
   if (force > MAX_FORCE) force = MAX_FORCE;
 
@@ -49,6 +54,12 @@ void updateParticles() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {
     #define particle particles[i]
 
+    particle.velocity.x *= FRICTION;
+    particle.velocity.y *= FRICTION;
+
+    // ToDo:
+    // - Reuse force for particle pairs (they experience the same force)
+    // - Optimize using lattice?!?
     for (int j = 0; j < PARTICLE_COUNT; j++) {
       if (j == i) continue;
       applyForce(&particles[i], &particles[j]);

@@ -40,7 +40,8 @@ Module.onRuntimeInitialized = () => {
 
       particles[i] = [
         Module.getValue(pointer, 'float'),
-        Module.getValue(pointer + 4, 'float')
+        Module.getValue(pointer + 4, 'float'),
+        Module.getValue(pointer + 16, 'float')
       ];
     }
   }
@@ -54,19 +55,22 @@ Module.onRuntimeInitialized = () => {
   }
 
   function draw() {
-    // ctx.clearRect(0, 0, cnv.width, cnv.height);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-    ctx.fillRect(0, 0, cnv.width, cnv.height);
-    ctx.beginPath();
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
+    // ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+    // ctx.fillRect(0, 0, cnv.width, cnv.height);
+    // ctx.beginPath();
 
-    ctx.fillStyle = 'rgb(0, 0, 0)';
+    // ctx.fillStyle = 'rgb(0, 0, 0)';
 
     for (let particle of particles) {
-      ctx.moveTo(particle[0], particle[1]);
+      ctx.beginPath();
+      ctx.fillStyle = particle[2] > 0 ? 'red' : 'blue';
+      // ctx.moveTo(particle[0], particle[1]);
       ctx.arc(particle[0], particle[1], PARTICLE_SIZE, 0, 7);
+      ctx.fill();
     }
 
-    ctx.fill();
+    // ctx.fill();
   }
 
   function update() {
