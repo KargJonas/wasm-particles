@@ -1,3 +1,5 @@
+const cnv = document.querySelector('canvas');
+const ctx = cnv.getContext('2d');
 
 Module.onRuntimeInitialized = () => {
   const initializeParticleSystem = Module.cwrap('initializeParticleSystem', null, [null]);
@@ -6,21 +8,38 @@ Module.onRuntimeInitialized = () => {
   const getParticleStructSize = Module.cwrap('getParticleStructSize', 'number', [null]);
 
   initializeParticleSystem();
-  console.log('Particle array at heap location: ' + getParticleArrayPointer());
-  console.log('Particle array size: ' + getParticleArraySize());
-  console.log('Particle struct size: ' + getParticleStructSize());
 
   const particleArrayPointer = getParticleArrayPointer();
   const particleArraySize = getParticleArraySize();
-  const particleArrayEnd = particleArrayPointer + particleArraySize;
   const particleStructSize = getParticleStructSize();
+
+  const particles = [];
 
   // Reads the particle positions from heap
   function getParticlePositions() {
-    for (let i = particleArrayPointer; i < particleArrayEnd; i += particleStructSize) {
-      console.log(Module.getValue(i + 4, 'float'));
+    const particleCount = particleArraySize / particleStructSize;
+
+    for (let i = 0; i < particleCount; i++) {
+      const pointer = particleArrayPointer + i * particleStructSize;
+
+      particles[i] = [
+        Module.getValue(pointer, 'float'),
+        Module.getValue(pointer + 4, 'float')
+      ];
     }
   }
 
+  function drawParticles() {
+    ctx.beginPath();
+    
+    for (let particle of particles) {
+      ctx.moveTo(...particle);
+      ctx.arc(...particle, 8, 0, 7);
+    }
+
+    ctx.fill();
+  }
+
   getParticlePositions();
+  drawParticles();
 };

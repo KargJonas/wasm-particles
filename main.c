@@ -30,24 +30,14 @@ int main(int argc, char ** argv) {
 
 void initializeParticleSystem() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {    
-    // struct Vector initialPosition = {
-    //   rand() % BOUNDS_X,
-    //   rand() % BOUNDS_Y
-    // };
-
-    // struct Vector initialVelocity = {
-    //   (rand() % 100 - 50) / 25.0,
-    //   (rand() % 100 - 50) / 25.0
-    // };
-    
     struct Vector initialPosition = {
-      1,
-      234234.234234
+      rand() % BOUNDS_X,
+      rand() % BOUNDS_Y
     };
 
     struct Vector initialVelocity = {
-      0,
-      0
+      (rand() % 100 - 50) / 25.0,
+      (rand() % 100 - 50) / 25.0
     };
 
     struct Particle newParticle = {
