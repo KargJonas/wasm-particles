@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
 
-#define PARTICLE_COUNT 100
+#define PARTICLE_COUNT 50
 #define BOUNDS_X 500
 #define BOUNDS_Y 500
 
@@ -26,12 +27,15 @@ void initializeParticleSystem() {
       (float)(rand() % BOUNDS_Y)
     };
 
-    struct Vector initialVelocity = {
-      (float)((rand() % 100 - 50) / 70.0),
-      (float)((rand() % 100 - 50) / 70.0)
-    };
+    // struct Vector initialVelocity = {
+    //   (float)((rand() % 100 - 50) / 70.0),
+    //   (float)((rand() % 100 - 50) / 70.0)
+    // };
+
+    struct Vector initialVelocity = { 0, 0 };
 
     float charge = (rand() % 2) ? -1 : 1;
+    // float charge = 1.0;
 
     struct Particle newParticle = {
       initialPosition,

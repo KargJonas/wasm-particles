@@ -1,20 +1,28 @@
 #include "lib.h"
 #include <math.h>
+#include <stdio.h>
+
+// #define ELECTROMAG_CONST 1e2
+// #define MAX_FORCE 3
+// #define ELASTICITY 0.8
+
+// Temporary values
+#define ELECTROMAG_CONST 10
+#define MAX_FORCE .1
+#define ELASTICITY 0.3
 
 int main(int argc, char ** argv) {
   time_t current_time;
   srand((unsigned)time(&current_time));
 }
 
-// struct Vector * add(struct Vector * a, struct Vector * b) { }
-
-struct Vector calculateForce(struct Particle particleA, struct Particle particleB) {
-  // Electromagnetic force (k will be omitted):
+void applyForce(struct Particle * particleA, struct Particle * particleB) {
+  // Electromagnetic force:
   // F = k * (Qa * Qb) / r ^ 2
 
   struct Vector AB = {
-    particleB.position.x - particleA.position.x,
-    particleB.position.y - particleA.position.y
+    particleB->position.x - particleA->position.x,
+    particleB->position.y - particleA->position.y
   };
 
   float distance = sqrt(
@@ -22,13 +30,19 @@ struct Vector calculateForce(struct Particle particleA, struct Particle particle
     pow(AB.y, 2)
   );
 
-  float force = particleA.charge * particleB.charge / pow(distance, 2);
+  float force = ELECTROMAG_CONST * particleA->charge * particleB->charge / pow(distance, 2);
+  
+  if (force > MAX_FORCE) force = MAX_FORCE;
 
   // This can be simplified
   struct Vector normalizedAB = {
     AB.x / distance * force,
     AB.y / distance * force
   };
+
+  // This is a simplified implementation
+  particleA->velocity.x += normalizedAB.x;
+  particleA->velocity.y += normalizedAB.y;
 }
 
 void updateParticles() {
@@ -36,7 +50,8 @@ void updateParticles() {
     #define particle particles[i]
 
     for (int j = 0; j < PARTICLE_COUNT; j++) {
-
+      if (j == i) continue;
+      applyForce(&particles[i], &particles[j]);
     }
 
     // Basic wall collision detection
@@ -45,14 +60,14 @@ void updateParticles() {
 
     if (particle.position.x < 0 || particle.position.x > BOUNDS_X) {
       particle.position.x -= particle.velocity.x;
-      particle.velocity.x *= -1;
+      particle.velocity.x *= -ELASTICITY;
     }
 
     particle.position.y += particle.velocity.y;
 
     if (particle.position.y < 0 || particle.position.y > BOUNDS_Y) {
       particle.position.y -= particle.velocity.y;
-      particle.velocity.y *= -1;
+      particle.velocity.y *= -ELASTICITY;
     }
   }
 }
