@@ -13,6 +13,7 @@ struct Vector {
 struct Particle {
   struct Vector position;
   struct Vector velocity;
+  float charge;
 };
 
 // This array contains detailed information of each particle
@@ -26,13 +27,16 @@ void initializeParticleSystem() {
     };
 
     struct Vector initialVelocity = {
-      (float)(rand() % 100 - 50) / 70.0,
-      (float)(rand() % 100 - 50) / 70.0
+      (float)((rand() % 100 - 50) / 70.0),
+      (float)((rand() % 100 - 50) / 70.0)
     };
+
+    float charge = (rand() % 2) ? -1 : 1;
 
     struct Particle newParticle = {
       initialPosition,
-      initialVelocity
+      initialVelocity,
+      charge
     };
 
     particles[i] = newParticle;
