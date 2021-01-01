@@ -1722,7 +1722,13 @@ var _main = Module["_main"] = createExportWrapper("main");
 var _initializeParticleSystem = Module["_initializeParticleSystem"] = createExportWrapper("initializeParticleSystem");
 
 /** @type {function(...*):?} */
-var _getParticles = Module["_getParticles"] = createExportWrapper("getParticles");
+var _getParticleArrayPointer = Module["_getParticleArrayPointer"] = createExportWrapper("getParticleArrayPointer");
+
+/** @type {function(...*):?} */
+var _getParticleArraySize = Module["_getParticleArraySize"] = createExportWrapper("getParticleArraySize");
+
+/** @type {function(...*):?} */
+var _getParticleStructSize = Module["_getParticleStructSize"] = createExportWrapper("getParticleStructSize");
 
 /** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
@@ -1765,7 +1771,7 @@ if (!Object.getOwnPropertyDescriptor(Module, "intArrayToString")) Module["intArr
 Module["ccall"] = ccall;
 Module["cwrap"] = cwrap;
 if (!Object.getOwnPropertyDescriptor(Module, "setValue")) Module["setValue"] = function() { abort("'setValue' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
-if (!Object.getOwnPropertyDescriptor(Module, "getValue")) Module["getValue"] = function() { abort("'getValue' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
+Module["getValue"] = getValue;
 if (!Object.getOwnPropertyDescriptor(Module, "allocate")) Module["allocate"] = function() { abort("'allocate' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
 if (!Object.getOwnPropertyDescriptor(Module, "UTF8ArrayToString")) Module["UTF8ArrayToString"] = function() { abort("'UTF8ArrayToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };
 if (!Object.getOwnPropertyDescriptor(Module, "UTF8ToString")) Module["UTF8ToString"] = function() { abort("'UTF8ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)") };

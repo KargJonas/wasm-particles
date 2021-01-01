@@ -1,5 +1,5 @@
-EF		= ['_main', '_initializeParticleSystem', '_getParticles']
-EERM	= ['ccall','cwrap']
+EF		= ['_main', '_initializeParticleSystem', '_getParticleArraySize', '_getParticleArrayPointer', '_getParticleStructSize']
+EERM	= ['ccall', 'cwrap', 'getValue']
 
 clean: compiled.js compiled.wasm
 	-rm compiled.js compiled.wasm
