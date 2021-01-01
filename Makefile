@@ -4,10 +4,11 @@ EERM	= ['ccall', 'cwrap', 'getValue']
 OUT_DIR = ./build
 SRC_DIR = ./src
 
-clean: $(OUT_DIR)/compiled.js $(OUT_DIR)/compiled.wasm
-	-rm $(OUT_DIR)/compiled.js $(OUT_DIR)/compiled.wasm
+clean: $(OUT_DIR)
+	-rm -rf $(OUT_DIR)
 
-all: $(SRC_DIR)/main.c
+main: $(SRC_DIR)/main.c
+	mkdir -p build
 	emcc 	-s "EXTRA_EXPORTED_RUNTIME_METHODS=$(EERM)" \
 				-s "EXPORTED_FUNCTIONS=$(EF)" \
 				-s WASM=1 \
