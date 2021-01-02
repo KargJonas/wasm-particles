@@ -1,4 +1,4 @@
-EF		= ['_main', '_initializeParticleSystem', '_getParticleArraySize', '_getParticleArrayPointer', '_getParticleStructSize', '_updateParticles']
+EF		= ['_main', '_initializeParticleSystem', '_getParticleArraySize', '_getParticleArrayPointer', '_getParticleStructSize', '_updateParticles', '_setTimeScale']
 EERM	= ['ccall', 'cwrap', 'getValue']
 
 PORT	= 5500
@@ -10,7 +10,7 @@ SRC_DIR 		= ./src
 clean: $(OUT_DIR)
 	-rm -rf $(OUT_DIR)
 
-main: $(SRC_DIR)/main.c $(SRC_DIR)/lib.h
+main: $(SRC_DIR)/main.c $(SRC_DIR)/main.h $(SRC_DIR)/lib.c $(SRC_DIR)/config.h
 	-mkdir -p $(OUT_DIR)
 	-emcc -s "EXTRA_EXPORTED_RUNTIME_METHODS=$(EERM)" \
 				-s "EXPORTED_FUNCTIONS=$(EF)" \

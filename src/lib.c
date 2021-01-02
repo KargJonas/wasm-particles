@@ -2,42 +2,27 @@
 #include <time.h>
 #include <stdio.h>
 
-#define PARTICLE_COUNT 500
-#define BOUNDS_X 800
-#define BOUNDS_Y 800
-
-struct Vector {
-  float x;
-  float y;
-};
-
-struct Particle {
-  struct Vector position;
-  struct Vector velocity;
-  float charge;
-};
-
-// This array contains detailed information of each particle
-struct Particle particles[PARTICLE_COUNT];
+#include "main.h"
+#include "config.h"
 
 void initializeParticleSystem() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {    
-    struct Vector initialPosition = {
+    Vector initialPosition = {
       (float)(rand() % BOUNDS_X),
       (float)(rand() % BOUNDS_Y)
     };
 
-    // struct Vector initialVelocity = {
+    // Vector initialVelocity = {
     //   (float)((rand() % 100 - 50) / 70.0),
     //   (float)((rand() % 100 - 50) / 70.0)
     // };
 
-    struct Vector initialVelocity = { 0, 0 };
+    Vector initialVelocity = { 0, 0 };
 
     float charge = (rand() % 2) ? -1 : 1;
     // float charge = 1.0;
 
-    struct Particle newParticle = {
+    Particle newParticle = {
       initialPosition,
       initialVelocity,
       charge
@@ -48,7 +33,7 @@ void initializeParticleSystem() {
 }
 
 // Returns the location of the particle array
-struct Particle * getParticleArrayPointer() {
+Particle *getParticleArrayPointer() {
   return particles;
 }
 
@@ -60,4 +45,8 @@ int * getParticleArraySize() {
 // Returns the size of the individual structs within the array.
 int * getParticleStructSize() {
   return (int*)sizeof(particles[0]);
+}
+
+void setTimeScale(float _timeScale) {
+  timeScale = _timeScale;
 }
