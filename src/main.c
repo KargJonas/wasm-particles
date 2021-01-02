@@ -2,16 +2,12 @@
 #include <math.h>
 #include <stdio.h>
 
-// #define ELECTROMAG_CONST 1e2
-// #define MAX_FORCE 3
-// #define ELASTICITY 0.8
-
-// Temporary values
-#define ELECTROMAG_CONST 10
-#define MAX_FORCE .1
-#define ELASTICITY 0.3
-#define PARTICLE_DIAMETER 6
-#define FRICTION 0.90
+#define ELECTROMAG_CONST 10   // Electromagnetic constant
+#define MAX_FORCE .1          // Strongest force allowed in the system
+#define ELASTICITY 0.8        // Energy retained after rebound
+#define PARTICLE_DIAMETER 6   // Particle diameter
+#define FRICTION 0.9          // Amount of velocity retained after each simulation step
+#define MAX_DIST 180          // Max effective force distance (performance)
 
 int main(int argc, char ** argv) {
   time_t current_time;
@@ -19,9 +15,6 @@ int main(int argc, char ** argv) {
 }
 
 void applyForce(struct Particle * particleA, struct Particle * particleB) {
-  // Electromagnetic force:
-  // F = k * (Qa * Qb) / r ^ 2
-
   struct Vector AB = {
     particleB->position.x - particleA->position.x,
     particleB->position.y - particleA->position.y
@@ -33,8 +26,10 @@ void applyForce(struct Particle * particleA, struct Particle * particleB) {
   );
 
   // No force applied if too close
-  if (distance < PARTICLE_DIAMETER) return;
+  if (distance < PARTICLE_DIAMETER || distance > MAX_DIST) return;
 
+  // Electromagnetic force:
+  // F = k * (Qa * Qb) / r ^ 2
   float force = ELECTROMAG_CONST * -particleA->charge * particleB->charge / pow(distance, 2);
   
   if (force > MAX_FORCE) force = MAX_FORCE;
