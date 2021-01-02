@@ -6,8 +6,8 @@
 #define MAX_FORCE .1          // Strongest force allowed in the system
 #define ELASTICITY 0.8        // Energy retained after rebound
 #define PARTICLE_DIAMETER 6   // Particle diameter
-#define FRICTION 0.9          // Amount of velocity retained after each simulation step
-#define MAX_DIST 180          // Max effective force distance (performance)
+#define FRICTION 0.99          // Amount of velocity retained after each simulation step
+#define MAX_DIST 200          // Max effective force distance (performance)
 
 int main(int argc, char ** argv) {
   time_t current_time;
@@ -43,20 +43,19 @@ void applyForce(struct Particle * particleA, struct Particle * particleB) {
   // This is a simplified implementation
   particleA->velocity.x += normalizedAB.x;
   particleA->velocity.y += normalizedAB.y;
+
+  particleB->velocity.x -= normalizedAB.x;
+  particleB->velocity.y -= normalizedAB.y;
 }
 
 void updateParticles() {
-  for (int i = 0; i < PARTICLE_COUNT; i++) {
-    #define particle particles[i]
+  for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
+#define particle particles[i]
 
     particle.velocity.x *= FRICTION;
     particle.velocity.y *= FRICTION;
 
-    // ToDo:
-    // - Reuse force for particle pairs (they experience the same force)
-    // - Optimize using lattice?!?
-    for (int j = 0; j < PARTICLE_COUNT; j++) {
-      if (j == i) continue;
+    for (int j = i + 1; j < PARTICLE_COUNT; j++) {
       applyForce(&particles[i], &particles[j]);
     }
 
