@@ -6,6 +6,12 @@ const ctx = cnv.getContext('2d');
 
 const PARTICLE_SIZE = 3;
 
+const colors = {
+  [-1]: 'blue',
+  [0]:  'yellow',
+  [1]:  'red'
+}
+
 Module.onRuntimeInitialized = () => {
   const initializeParticleSystem = Module.cwrap('initializeParticleSystem', null, [null]);
   const getParticleArrayPointer = Module.cwrap('getParticleArrayPointer', 'number', [null]);
@@ -54,7 +60,9 @@ Module.onRuntimeInitialized = () => {
 
     for (let particle of particles) {
       ctx.beginPath();
-      ctx.fillStyle = particle[2] > 0 ? 'red' : 'blue';
+
+      if (particle[2] < -1) continue;
+      ctx.fillStyle = colors[particle[2]];
       // ctx.moveTo(particle[0], particle[1]);
       ctx.arc(particle[0], particle[1], PARTICLE_SIZE, 0, 7);
       ctx.fill();

@@ -2,7 +2,8 @@
 #define BOUNDS_X 800          // Height of canvas
 #define BOUNDS_Y 800          // Width of canvas
 
-#define ELECTROMAG_CONST 8    // Electromagnetic constant
+#define ELECTROMAG_CONST 5    // Electromagnetic constant
+#define STRONG_CONST 10       // Strong force constant
 #define MAX_FORCE .1          // Strongest force allowed in the system
 #define ELASTICITY 0.8        // Energy retained after rebound
 #define PARTICLE_DIAMETER 6   // Particle diameter
