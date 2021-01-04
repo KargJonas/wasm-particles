@@ -1,7 +1,6 @@
 #include "config.h"
 #include <sys/types.h>
 #include <time.h>
-#include <stdbool.h> 
 
 struct _Vector {
   float x;

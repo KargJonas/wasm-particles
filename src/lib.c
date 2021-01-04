@@ -4,7 +4,6 @@
 
 #include "main.h"
 #include "config.h"
-#include <stdbool.h> 
 
 void initializeParticleSystem() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {    
@@ -15,13 +14,12 @@ void initializeParticleSystem() {
       (float)(rand() % BOUNDS_Y)
     };
 
-    float charge = (rand() % 2) ? -1 : 1;
+    float charge = (rand() % 100) < E_P_RATIO ? -1 : 1;
 
     Particle newParticle = {
       initialPosition,
       initialVelocity,
-      charge,
-      false
+      charge
     };
 
     particles[i] = newParticle;

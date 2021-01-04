@@ -4,6 +4,9 @@
 #include "lib.c"
 #include "config.h"
 
+// The reason for the nuclei exclusively composed of neutrons
+// is the omission of the Pauli exclusion principle.
+
 // This array contains detailed information of each particle
 Particle particles[PARTICLE_COUNT];
 
@@ -17,7 +20,6 @@ int main(int argc, char ** argv) {
 void applyForce(Particle * particleA, Particle * particleB) {
   // No force applied if one of the particles is part of a neutron.
   if (particleA->charge < -1 || particleB->charge < -1) return;
-  if (particleA->charge == 0 && particleB->charge == 0) return;
 
   Vector AB = {
     particleB->position.x - particleA->position.x,
@@ -32,33 +34,33 @@ void applyForce(Particle * particleA, Particle * particleB) {
   // No force applied if too far away
   if (distance > MAX_DIST) return;
 
+  float force;
+
   // Merge to neutron if close enough
   if (distance < PARTICLE_DIAMETER) {
-    particleB->charge = -2;
-    particleA->charge = 0;
-  }
+    if (particleA->charge && particleB->charge) {
+      particleB->charge = -2;
+      particleA->charge = 0;
+    } else force = -0.01;
+  } else {
+    force = STRONG_CONST / pow(distance, 3);
 
-  float force = STRONG_CONST / pow(distance, 2);
-
-  // Only apply electromagnetic force when no  
-  if (particleA->charge && particleB->charge) {
-    // "Electromagnetic force"
-    // F = k * (Qa * Qb) / r ^ 2
-    force *= (ELECTROMAG_CONST * -particleA->charge * particleB->charge * 2);
-  }
+    // Only apply electromagnetic force when no  
+    if (particleA->charge && particleB->charge) {
+      // "Electromagnetic force"
+      // F = k * (Qa * Qb) / r ^ 2
+      force += ELECTROMAG_CONST * -particleA->charge * particleB->charge / pow(distance, 2);
+    }
   
-  if (force > MAX_FORCE) force = MAX_FORCE;
+    if (force > MAX_FORCE) force = MAX_FORCE;
 
-  // This can be simplified
-  Vector normalizedAB = {
-    AB.x / distance * force,
-    AB.y / distance * force
-  };
+    force /= distance;
+  }
 
-  // This is a simplified implementation
+  Vector normalizedAB = { AB.x * force, AB.y * force };
+
   particleA->velocity.x += normalizedAB.x;
   particleA->velocity.y += normalizedAB.y;
-
   particleB->velocity.x -= normalizedAB.x;
   particleB->velocity.y -= normalizedAB.y;
 }

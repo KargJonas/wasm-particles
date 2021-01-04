@@ -8,7 +8,7 @@ const PARTICLE_SIZE = 3;
 
 const colors = {
   [-1]: 'blue',
-  [0]:  'yellow',
+  [0]:  'white',
   [1]:  'red'
 }
 
