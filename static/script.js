@@ -1,5 +1,6 @@
 const mspfCounter = document.querySelector('#mspf-counter');
 const fpsCounter = document.querySelector('#fps-counter');
+const realFpsCounter = document.querySelector('#real-fps-counter');
 const cnv = document.querySelector('canvas');
 const ctx = cnv.getContext('2d');
 
@@ -65,16 +66,21 @@ Module.onRuntimeInitialized = () => {
 
   setTimeScale(0.0004);
 
+  let lastUpdate = 0;
+
   function update() {
     requestAnimationFrame(update);
-    
-    // updateParticles();
+
     const performance = getPerformance(updateParticles);
-    mspfCounter.innerHTML = performance;
+    const realPerformance = Date.now() - lastUpdate;
+
+    mspfCounter.innerHTML = Math.round(performance * 100, 4) / 100;
     fpsCounter.innerHTML = 1000 / performance | 0;
+    realFpsCounter.innerHTML = 1000 / realPerformance | 0;
 
     getParticlePositions();
     draw();
+    lastUpdate = Date.now();
   }
 
   update();

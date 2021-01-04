@@ -4,12 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WASM Particles</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <canvas width="800" height="800"></canvas>
 
-  <h3>ms/Frame: <span id="mspf-counter"></span></h3>
-  <h3>FPS: <span id="fps-counter"></span></h3>
+  <table>
+    <tr>
+      <td>Actual</td>
+      <td>Milliseconds/Step</td>
+      <td><span id="mspf-counter"></td>
+    </tr>
+
+    <tr>
+      <td>Actual</td>
+      <td>Frames/Second</td>
+      <td><span id="real-fps-counter"></td>
+    </tr>
+
+    <tr>
+      <td>Theoretical</td>
+      <td>Frames/Second</td>
+      <td><span id="fps-counter"></span></td>
+    </tr>
+  </table>
 
   <script src="build/compiled.js"></script>
   <script src="metrics.js"></script>
