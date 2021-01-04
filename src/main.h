@@ -1,4 +1,6 @@
 #include "config.h"
+#include <sys/types.h>
+#include <time.h>
 
 struct _Vector {
   float x;
@@ -16,4 +18,4 @@ typedef struct _Particle Particle;
 
 extern Particle particles[PARTICLE_COUNT];
 extern float timeScale;
-extern float lastUpdate;
+extern time_t lastUpdate;

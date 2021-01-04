@@ -6,9 +6,9 @@
 
 // This array contains detailed information of each particle
 Particle particles[PARTICLE_COUNT];
-float timeScale = 1;
-float lastUpdate;
-float deltaTime;
+float timeScale = DEFAULT_TIMESCALE;
+time_t lastUpdate;
+time_t timeStep;
 
 // typedef struct Particle Particle;
 
@@ -52,8 +52,8 @@ void applyForce(Particle * particleA, Particle * particleB) {
 }
 
 void updateParticles() {
-  deltaTime = (clock() - lastUpdate) * timeScale;
-
+  timeStep = (clock() - lastUpdate) * timeScale;
+  
   for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
 #define particle particles[i]
 
@@ -71,17 +71,17 @@ void updateParticles() {
     // ToDo:
     // - Introduce timesteps
 
-    particle.position.x += particle.velocity.x * deltaTime;
+    particle.position.x += particle.velocity.x * timeStep;
 
     if (particle.position.x < 0 || particle.position.x > BOUNDS_X) {
-      particle.position.x -= particle.velocity.x  * deltaTime;
+      particle.position.x -= particle.velocity.x  * timeStep;
       particle.velocity.x *= -ELASTICITY;
     }
 
-    particle.position.y += particle.velocity.y * deltaTime;
+    particle.position.y += particle.velocity.y * timeStep;
 
     if (particle.position.y < 0 || particle.position.y > BOUNDS_Y) {
-      particle.position.y -= particle.velocity.y * deltaTime;
+      particle.position.y -= particle.velocity.y * timeStep;
       particle.velocity.y *= -ELASTICITY;
     }
   }

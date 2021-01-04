@@ -1,20 +1,9 @@
+const mspfCounter = document.querySelector('#mspf-counter');
+const fpsCounter = document.querySelector('#fps-counter');
 const cnv = document.querySelector('canvas');
 const ctx = cnv.getContext('2d');
 
 const PARTICLE_SIZE = 3;
-
-function checkPerformance(fn, runs = 1) {
-  let total = 0;
-
-  for (let i = 0; i < runs; i++) {
-    const t0 = performance.now();
-    fn();
-    const t1 = performance.now();
-    total += (t1 - t0);
-  }
-
-  console.log(total / runs);
-}
 
 Module.onRuntimeInitialized = () => {
   const initializeParticleSystem = Module.cwrap('initializeParticleSystem', null, [null]);
@@ -57,7 +46,7 @@ Module.onRuntimeInitialized = () => {
 
   function draw() {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
-    // ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+    // ctx.fillStyle = 'rgba(255, 255, 255, 0.015)';
     // ctx.fillRect(0, 0, cnv.width, cnv.height);
     // ctx.beginPath();
 
@@ -74,14 +63,18 @@ Module.onRuntimeInitialized = () => {
     // ctx.fill();
   }
 
-  setTimeScale(0.001);
+  setTimeScale(0.0004);
 
   function update() {
     requestAnimationFrame(update);
-    updateParticles();
+    
+    // updateParticles();
+    const performance = getPerformance(updateParticles);
+    mspfCounter.innerHTML = performance;
+    fpsCounter.innerHTML = 1000 / performance | 0;
+
     getParticlePositions();
     draw();
-    // fastDraw();
   }
 
   update();

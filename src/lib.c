@@ -38,12 +38,12 @@ Particle *getParticleArrayPointer() {
 }
 
 // Returns the size of the array
-int * getParticleArraySize() {
+int *getParticleArraySize() {
   return (int*)sizeof(particles);
 }
 
 // Returns the size of the individual structs within the array.
-int * getParticleStructSize() {
+int *getParticleStructSize() {
   return (int*)sizeof(particles[0]);
 }
 
