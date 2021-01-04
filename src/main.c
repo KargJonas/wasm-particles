@@ -7,8 +7,6 @@
 // This array contains detailed information of each particle
 Particle particles[PARTICLE_COUNT];
 
-// typedef struct Particle Particle;
-
 int main(int argc, char ** argv) {
   time_t current_time;
   srand((unsigned)time(&current_time));

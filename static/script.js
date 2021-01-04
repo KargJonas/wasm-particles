@@ -76,7 +76,7 @@ Module.onRuntimeInitialized = () => {
     realFpsCounter.innerHTML = 1000 / realPerformance | 0;
 
     getParticlePositions();
-    draw();
+    // draw();
     lastUpdate = Date.now();
   }
 
