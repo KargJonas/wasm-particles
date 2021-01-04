@@ -57,8 +57,8 @@ void updateParticles() {
   for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
 #define particle particles[i]
 
-    particle.velocity.x *= FRICTION;
-    particle.velocity.y *= FRICTION;
+    particle.velocity.x *= (FRICTION * timeStep);
+    particle.velocity.y *= (FRICTION * timeStep);
 
     for (int j = i + 1; j < PARTICLE_COUNT; j++) {
       applyForce(&particles[i], &particles[j]);
@@ -74,14 +74,14 @@ void updateParticles() {
     particle.position.x += particle.velocity.x * timeStep;
 
     if (particle.position.x < 0 || particle.position.x > BOUNDS_X) {
-      particle.position.x -= particle.velocity.x  * timeStep;
+      particle.position.x -= particle.velocity.x  * timeStep * 10;
       particle.velocity.x *= -ELASTICITY;
     }
 
     particle.position.y += particle.velocity.y * timeStep;
 
     if (particle.position.y < 0 || particle.position.y > BOUNDS_Y) {
-      particle.position.y -= particle.velocity.y * timeStep;
+      particle.position.y -= particle.velocity.y * timeStep * 10;
       particle.velocity.y *= -ELASTICITY;
     }
   }
