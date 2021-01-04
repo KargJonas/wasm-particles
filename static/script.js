@@ -12,7 +12,6 @@ Module.onRuntimeInitialized = () => {
   const getParticleArraySize = Module.cwrap('getParticleArraySize', 'number', [null]);
   const getParticleStructSize = Module.cwrap('getParticleStructSize', 'number', [null]);
   const updateParticles = Module.cwrap('updateParticles', null, [null]);
-  const setTimeScale = Module.cwrap('setTimeScale', null, ['number']);
 
   initializeParticleSystem();
 
@@ -63,8 +62,6 @@ Module.onRuntimeInitialized = () => {
 
     // ctx.fill();
   }
-
-  setTimeScale(0.0004);
 
   let lastUpdate = 0;
 

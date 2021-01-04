@@ -1,4 +1,4 @@
-EF		= ['_main', '_initializeParticleSystem', '_getParticleArraySize', '_getParticleArrayPointer', '_getParticleStructSize', '_updateParticles', '_setTimeScale']
+EF		= ['_main', '_initializeParticleSystem', '_getParticleArraySize', '_getParticleArrayPointer', '_getParticleStructSize', '_updateParticles']
 EERM	= ['ccall', 'cwrap', 'getValue']
 
 PORT	= 5500

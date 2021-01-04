@@ -17,5 +17,3 @@ typedef struct _Vector Vector;
 typedef struct _Particle Particle;
 
 extern Particle particles[PARTICLE_COUNT];
-extern float timeScale;
-extern time_t lastUpdate;

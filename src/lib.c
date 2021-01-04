@@ -46,7 +46,3 @@ int *getParticleArraySize() {
 int *getParticleStructSize() {
   return (int*)sizeof(particles[0]);
 }
-
-void setTimeScale(float _timeScale) {
-  timeScale = _timeScale;
-}

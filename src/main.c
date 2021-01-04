@@ -6,9 +6,6 @@
 
 // This array contains detailed information of each particle
 Particle particles[PARTICLE_COUNT];
-float timeScale = DEFAULT_TIMESCALE;
-time_t lastUpdate;
-time_t timeStep;
 
 // typedef struct Particle Particle;
 
@@ -52,13 +49,12 @@ void applyForce(Particle * particleA, Particle * particleB) {
 }
 
 void updateParticles() {
-  timeStep = (clock() - lastUpdate) * timeScale;
   
   for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
 #define particle particles[i]
 
-    particle.velocity.x *= (FRICTION * timeStep);
-    particle.velocity.y *= (FRICTION * timeStep);
+    particle.velocity.x *= (FRICTION);
+    particle.velocity.y *= (FRICTION);
 
     for (int j = i + 1; j < PARTICLE_COUNT; j++) {
       applyForce(&particles[i], &particles[j]);
@@ -68,23 +64,18 @@ void updateParticles() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {
     // Basic wall collision detection
 
-    // ToDo:
-    // - Introduce timesteps
-
-    particle.position.x += particle.velocity.x * timeStep;
+    particle.position.x += particle.velocity.x;
 
     if (particle.position.x < 0 || particle.position.x > BOUNDS_X) {
-      particle.position.x -= particle.velocity.x  * timeStep * 10;
+      particle.position.x -= particle.velocity.x * 10;
       particle.velocity.x *= -ELASTICITY;
     }
 
-    particle.position.y += particle.velocity.y * timeStep;
+    particle.position.y += particle.velocity.y;
 
     if (particle.position.y < 0 || particle.position.y > BOUNDS_Y) {
-      particle.position.y -= particle.velocity.y * timeStep * 10;
+      particle.position.y -= particle.velocity.y * 10;
       particle.velocity.y *= -ELASTICITY;
     }
   }
-
-  lastUpdate = clock();
 }

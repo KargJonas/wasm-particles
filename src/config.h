@@ -8,4 +8,3 @@
 #define PARTICLE_DIAMETER 6   // Particle diameter
 #define FRICTION 0.9          // Amount of velocity retained after each simulation step
 #define MAX_DIST 800          // Max effective force distance (performance)
-#define DEFAULT_TIMESCALE 1   // Default timescale
