@@ -31,9 +31,6 @@ void applyForce(Particle * particleA, Particle * particleB) {
 
   if (force > MAX_FORCE) force = MAX_FORCE;
 
-  // force *= fastInverseSqrt(powXY);
-  // float adjustedForce = force / distance;
-
   // This can be simplified
   Vector normalizedAB = {
     AB.x * force,
