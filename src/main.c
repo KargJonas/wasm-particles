@@ -18,8 +18,8 @@ void applyForce(Particle * particleA, Particle * particleB) {
     particleB->position.y - particleA->position.y
   };
 
-  float powXY = pow(AB.x, 2) + pow(AB.y, 2);
-  // float distance = sqrt(powXY);
+  // float powXY = pow(AB.x, 2) + pow(AB.y, 2); // This little line cost 30 ms and 3h to find
+  float powXY = AB.x * AB.x + AB.y * AB.y;
   float distance = sqrt(powXY);
 
   // No force applied if too close
@@ -27,18 +27,17 @@ void applyForce(Particle * particleA, Particle * particleB) {
 
   // Electromagnetic force:
   // F = k * (Qa * Qb) / r ^ 2
-  float force = ELECTROMAG_CONST * -particleA->charge * particleB->charge /
-  powXY;
+  float force = ELECTROMAG_CONST * -particleA->charge * particleB->charge / (powXY * distance);
 
   if (force > MAX_FORCE) force = MAX_FORCE;
 
   // force *= fastInverseSqrt(powXY);
-  float adjustedForce = force / distance;
+  // float adjustedForce = force / distance;
 
   // This can be simplified
   Vector normalizedAB = {
-    AB.x * adjustedForce,
-    AB.y * adjustedForce
+    AB.x * force,
+    AB.y * force
   };
 
   // This is a simplified implementation
