@@ -1,5 +1,4 @@
 #include "config.h"
-#include <sys/types.h>
 #include <time.h>
 
 struct _Vector {

@@ -1,13 +1,13 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "lib.c"
 #include "config.h"
+#include "lib.c"
 
 // This array contains detailed information of each particle
 Particle particles[PARTICLE_COUNT];
 
-int main(int argc, char ** argv) {
+int main(int argc, char **argv) {
   time_t current_time;
   srand((unsigned)time(&current_time));
 }
@@ -18,24 +18,27 @@ void applyForce(Particle * particleA, Particle * particleB) {
     particleB->position.y - particleA->position.y
   };
 
-  float distance = sqrt(
-    pow(AB.x, 2) +
-    pow(AB.y, 2)
-  );
+  float powXY = pow(AB.x, 2) + pow(AB.y, 2);
+  // float distance = sqrt(powXY);
+  float distance = sqrt(powXY);
 
   // No force applied if too close
   if (distance < PARTICLE_DIAMETER || distance > MAX_DIST) return;
 
   // Electromagnetic force:
   // F = k * (Qa * Qb) / r ^ 2
-  float force = ELECTROMAG_CONST * -particleA->charge * particleB->charge / pow(distance, 2);
-  
+  float force = ELECTROMAG_CONST * -particleA->charge * particleB->charge /
+  powXY;
+
   if (force > MAX_FORCE) force = MAX_FORCE;
+
+  // force *= fastInverseSqrt(powXY);
+  float adjustedForce = force / distance;
 
   // This can be simplified
   Vector normalizedAB = {
-    AB.x / distance * force,
-    AB.y / distance * force
+    AB.x * adjustedForce,
+    AB.y * adjustedForce
   };
 
   // This is a simplified implementation
@@ -47,15 +50,15 @@ void applyForce(Particle * particleA, Particle * particleB) {
 }
 
 void updateParticles() {
-  
+
   for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
 #define particle particles[i]
 
-    particle.velocity.x *= (FRICTION);
-    particle.velocity.y *= (FRICTION);
+    particle.velocity.x *= FRICTION;
+    particle.velocity.y *= FRICTION;
 
     for (int j = i + 1; j < PARTICLE_COUNT; j++) {
-      applyForce(&particles[i], &particles[j]);
+      applyForce(&particle, &particles[j]);
     }
   }
 
