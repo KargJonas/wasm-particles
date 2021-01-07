@@ -6,19 +6,11 @@
 
 void initializeParticleSystem() {
   for (int i = 0; i < PARTICLE_COUNT; i++) {    
-    Vector initialVelocity = { 0, 0 };
-
-    Vector initialPosition = {
-      (float)(rand() % BOUNDS_X),
-      (float)(rand() % BOUNDS_Y)
-    };
-
-    float charge = (rand() % 2) ? -1 : 1;
-
     Particle newParticle = {
-      initialPosition,
-      initialVelocity,
-      charge
+      (float)(rand() % BOUNDS_X),
+      (float)(rand() % BOUNDS_Y),
+      0, 0,
+      (rand() % 2) ? -1 : 1
     };
 
     particles[i] = newParticle;

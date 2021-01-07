@@ -1,18 +1,13 @@
 #include "config.h"
 #include <time.h>
 
-struct _Vector {
-  float x;
-  float y;
-};
-
 struct _Particle {
-  struct _Vector position;
-  struct _Vector velocity;
-  float charge;
+  float px, py;
+  float vx, vy;
+  int charge;
 };
 
-typedef struct _Vector Vector;
+// typedef struct _Vector Vector;
 typedef struct _Particle Particle;
 
 extern Particle particles[PARTICLE_COUNT];

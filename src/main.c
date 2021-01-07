@@ -16,64 +16,59 @@ int main(int argc, char **argv) {
 }
 
 void updateParticles() {
+  float abx, aby, nx, ny, powXY, distance, force;
+
   for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
-// #define particle particleA
-
-    float powXY, distance, force;
-
-    particleA.velocity.x *= FRICTION;
-    particleA.velocity.y *= FRICTION;
+    particleA.vx *= FRICTION;
+    particleA.vy *= FRICTION;
 
     for (int j = i + 1; j < PARTICLE_COUNT; j++) {
-      Vector AB = {particleB.position.x - particleA.position.x,
-                   particleB.position.y - particleA.position.y};
+      abx = -particleA.px + particleB.px;
+      aby = -particleA.py + particleB.py;
 
       // float powXY = pow(AB.x, 2) + pow(AB.y, 2); // This little line cost 30
       // ms and 3h to find
-      powXY = AB.x * AB.x + AB.y * AB.y;
+      powXY = abx * abx + aby * aby;
       distance = sqrt(powXY);
 
       // No force applied if too close
       if (distance < PARTICLE_DIAMETER || distance > MAX_DIST)
-        continue;;
+        continue;
 
       // Electromagnetic force:
       // F = k * (Qa * Qb) / r ^ 2
       force = ELECTROMAG_CONST * -particleA.charge * particleB.charge /
-                    (powXY * distance);
-
-      // printf("%f\n", force);
+              (powXY * distance);
 
       if (force > MAX_FORCE)
         force = MAX_FORCE;
 
-      // This can be simplified
-      Vector normalizedAB = {AB.x * force, AB.y * force};
+      nx = abx * force;
+      ny = aby * force;
 
-      // This is a simplified implementation
-      particleA.velocity.x += normalizedAB.x;
-      particleA.velocity.y += normalizedAB.y;
+      particleA.vx += nx;
+      particleA.vy += ny;
 
-      particleB.velocity.x -= normalizedAB.x;
-      particleB.velocity.y -= normalizedAB.y;
+      particleB.vx -= nx;
+      particleB.vy -= ny;
     }
   }
 
   for (int i = 0; i < PARTICLE_COUNT; i++) {
     // Basic wall collision detection
 
-    particleA.position.x += particleA.velocity.x;
+    particleA.px += particleA.vx;
 
-    if (particleA.position.x < 0 || particleA.position.x > BOUNDS_X) {
-      particleA.position.x -= particleA.velocity.x * 10;
-      particleA.velocity.x *= -ELASTICITY;
+    if (particleA.px < 0 || particleA.px > BOUNDS_X) {
+      particleA.px -= particleA.vx;
+      particleA.vx *= -ELASTICITY;
     }
 
-    particleA.position.y += particleA.velocity.y;
+    particleA.py += particleA.vy;
 
-    if (particleA.position.y < 0 || particleA.position.y > BOUNDS_Y) {
-      particleA.position.y -= particleA.velocity.y * 10;
-      particleA.velocity.y *= -ELASTICITY;
+    if (particleA.py < 0 || particleA.py > BOUNDS_Y) {
+      particleA.py -= particleA.vy;
+      particleA.vy *= -ELASTICITY;
     }
   }
 }

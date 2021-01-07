@@ -73,9 +73,11 @@ Module.onRuntimeInitialized = () => {
     const performance = getPerformance(updateParticles);
     const realPerformance = Date.now() - lastUpdate;
 
+    // mspfCounter.innerHTML = ((performance * 100) | 0) / 100;
+
     mspfCounter.innerHTML = Math.round(performance * 100, 4) / 100;
-    fpsCounter.innerHTML = 1000 / performance | 0;
-    realFpsCounter.innerHTML = 1000 / realPerformance | 0;
+    fpsCounter.innerHTML = Math.round(1000 / performance);
+    realFpsCounter.innerHTML = Math.round(1000 / realPerformance);
 
     getParticlePositions();
     draw();
