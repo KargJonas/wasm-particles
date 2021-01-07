@@ -19,6 +19,8 @@ Module.onRuntimeInitialized = () => {
   const particleArraySize = getParticleArraySize();
   const particleStructSize = getParticleStructSize();
 
+  console.log(particleStructSize)
+
   const particles = [];
 
   // Reads the particle positions from heap

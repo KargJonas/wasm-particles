@@ -4,9 +4,6 @@
 #include "config.h"
 #include "lib.c"
 
-#define particleA particles[i]
-#define particleB particles[j]
-
 // This array contains detailed information of each particle
 Particle particles[PARTICLE_COUNT];
 
@@ -17,16 +14,16 @@ int main(int argc, char **argv) {
 
 void updateParticles() {
   for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
-// #define particle particleA
+// #define particle particles[i]
 
     float powXY, distance, force;
 
-    particleA.velocity.x *= FRICTION;
-    particleA.velocity.y *= FRICTION;
+    particles[i].velocity.x *= FRICTION;
+    particles[i].velocity.y *= FRICTION;
 
     for (int j = i + 1; j < PARTICLE_COUNT; j++) {
-      Vector AB = {particleB.position.x - particleA.position.x,
-                   particleB.position.y - particleA.position.y};
+      Vector AB = {particles[j].position.x - particles[i].position.x,
+                   particles[j].position.y - particles[i].position.y};
 
       // float powXY = pow(AB.x, 2) + pow(AB.y, 2); // This little line cost 30
       // ms and 3h to find
@@ -39,7 +36,7 @@ void updateParticles() {
 
       // Electromagnetic force:
       // F = k * (Qa * Qb) / r ^ 2
-      force = ELECTROMAG_CONST * -particleA.charge * particleB.charge /
+      force = ELECTROMAG_CONST * -particles[i].charge * particles[j].charge /
                     (powXY * distance);
 
       // printf("%f\n", force);
@@ -51,29 +48,29 @@ void updateParticles() {
       Vector normalizedAB = {AB.x * force, AB.y * force};
 
       // This is a simplified implementation
-      particleA.velocity.x += normalizedAB.x;
-      particleA.velocity.y += normalizedAB.y;
+      particles[i].velocity.x += normalizedAB.x;
+      particles[i].velocity.y += normalizedAB.y;
 
-      particleB.velocity.x -= normalizedAB.x;
-      particleB.velocity.y -= normalizedAB.y;
+      particles[j].velocity.x -= normalizedAB.x;
+      particles[j].velocity.y -= normalizedAB.y;
     }
   }
 
   for (int i = 0; i < PARTICLE_COUNT; i++) {
     // Basic wall collision detection
 
-    particleA.position.x += particleA.velocity.x;
+    particles[i].position.x += particles[i].velocity.x;
 
-    if (particleA.position.x < 0 || particleA.position.x > BOUNDS_X) {
-      particleA.position.x -= particleA.velocity.x * 10;
-      particleA.velocity.x *= -ELASTICITY;
+    if (particles[i].position.x < 0 || particles[i].position.x > BOUNDS_X) {
+      particles[i].position.x -= particles[i].velocity.x * 10;
+      particles[i].velocity.x *= -ELASTICITY;
     }
 
-    particleA.position.y += particleA.velocity.y;
+    particles[i].position.y += particles[i].velocity.y;
 
-    if (particleA.position.y < 0 || particleA.position.y > BOUNDS_Y) {
-      particleA.position.y -= particleA.velocity.y * 10;
-      particleA.velocity.y *= -ELASTICITY;
+    if (particles[i].position.y < 0 || particles[i].position.y > BOUNDS_Y) {
+      particles[i].position.y -= particles[i].velocity.y * 10;
+      particles[i].velocity.y *= -ELASTICITY;
     }
   }
 }
