@@ -15,6 +15,10 @@ int main(int argc, char **argv) {
   srand((unsigned)time(&current_time));
 }
 
+// float fastSqrtApprox() {
+//   return 
+// }
+
 void updateParticles() {
   float abx, aby, nx, ny, powXY, distance, force;
 
@@ -29,8 +33,9 @@ void updateParticles() {
       // float powXY = pow(AB.x, 2) + pow(AB.y, 2); // This little line cost 30
       // ms and 3h to find
       powXY = abx * abx + aby * aby;
-      distance = sqrt(powXY);
-
+      // distance = sqrt(powXY);
+      distance = powXY / 7.0; // This is an "approximation" of the squareroot
+  
       // No force applied if too close
       if (distance < PARTICLE_DIAMETER || distance > MAX_DIST)
         continue;
