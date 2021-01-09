@@ -15,26 +15,23 @@ int main(int argc, char **argv) {
   srand((unsigned)time(&current_time));
 }
 
-// float fastSqrtApprox() {
-//   return 
-// }
-
 void updateParticles() {
   float abx, aby, nx, ny, powXY, distance, force;
+  unsigned int i, j;
 
-  for (int i = 0; i < PARTICLE_COUNT - 1; i++) {
+  for (i = 0; i < PARTICLE_COUNT - 1; i++) {
     particleA.vx *= FRICTION;
     particleA.vy *= FRICTION;
 
-    for (int j = i + 1; j < PARTICLE_COUNT; j++) {
+    for (j = i + 1; j < PARTICLE_COUNT; j++) {
       abx = -particleA.px + particleB.px;
       aby = -particleA.py + particleB.py;
 
       // float powXY = pow(AB.x, 2) + pow(AB.y, 2); // This little line cost 30
       // ms and 3h to find
       powXY = abx * abx + aby * aby;
-      // distance = sqrt(powXY);
-      distance = powXY / 7.0; // This is an "approximation" of the squareroot
+      distance = sqrt(powXY);
+      // distance = powXY / 7.0; // This is an "approximation" of the squareroot
   
       // No force applied if too close
       if (distance < PARTICLE_DIAMETER || distance > MAX_DIST)
@@ -59,7 +56,7 @@ void updateParticles() {
     }
   }
 
-  for (int i = 0; i < PARTICLE_COUNT; i++) {
+  for (i = 0; i < PARTICLE_COUNT; i++) {
     // Basic wall collision detection
 
     particleA.px += particleA.vx;
