@@ -30,12 +30,12 @@ Module.onRuntimeInitialized = () => {
   const particleArraySize = getParticleArraySize();
   const particleStructSize = getParticleStructSize();
 
+  const particleCount = particleArraySize / particleStructSize;
+
   const particles = [];
 
   // Reads the particle positions from heap
   function getParticlePositions() {
-    const particleCount = particleArraySize / particleStructSize;
-
     for (let i = 0; i < particleCount; i++) {
       const pointer = particleArrayPointer + i * particleStructSize;
 
@@ -108,7 +108,8 @@ Module.onRuntimeInitialized = () => {
     const data = {
       total: truncate(total),
       average: truncate(average),
-      updates
+      updates,
+      particleCount
     };
 
     socket.emit('get-data', data);

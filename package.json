@@ -6,8 +6,8 @@
   "scripts": {
     "serve-wasm": "node server/main.js --dir='./wasm' --port=5500",
     "serve-js": "node server/main.js --dir='./js' --port=5500",
-    "test-wasm": "node server/main.js --dir='./wasm' --results-file='./results/wasm-chrome.json' --port=5500 --testing",
-    "test-js": "node server/main.js --dir='./js' --results-file='./results/js-chrome.json' --port=5500 --testing"
+    "test-wasm": "node server/main.js --dir='./wasm' --results-file='./results/wasm-chrome.json' --config-file='wasm/src/config.h' --port=5500 --testing",
+    "test-js": "node server/main.js --dir='./js' --results-file='./results/js-chrome.json' --config-file='wasm/src/config.h' --port=5500 --testing"
   },
   "repository": {
     "type": "git",

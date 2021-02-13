@@ -1,4 +1,5 @@
-#define PARTICLE_COUNT 2000   // Number of particles
+
+#define PARTICLE_COUNT 300   // Number of particles
 #define BOUNDS_X 800          // Height of canvas
 #define BOUNDS_Y 800          // Width of canvas
 
