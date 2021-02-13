@@ -7,7 +7,6 @@ const io = require('socket.io')(http);
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 var fs = require("fs");
-const { config } = require('process');
 
 const getConfig = (particleCount) => `
 #define PARTICLE_COUNT ${particleCount}   // Number of particles
@@ -33,16 +32,28 @@ program
 const options = program.opts();
 const dir = path.join(process.cwd(), options.dir);
 
-const particleAmounts = [1, 10, 50, 100, 200, 300];
+const particleAmounts = [1, 10, 50, 100, 200, 300, 500, 1000, 2000, 5000, 6000, 7000, 8000];
 let iteration = 0;
 
 app.use(express.static(dir), express.json());
 
 let data = [];
 
-function dataCollectionComplete() {
+async function dataCollectionComplete() {
+  data.shift();
   console.log('Data Collection Complete.');
   fs.writeFileSync(options.resultsFile, JSON.stringify(data), "utf8");
+  console.log('Data saved to results file.');
+  await modifyAndRebuild(particleAmounts[0]);
+}
+
+async function modifyAndRebuild(particleAmount) {
+  // Modify config
+  fs.writeFileSync(path.join(process.cwd(), options.configFile), getConfig(particleAmount), "utf8");
+
+  // Trigger recompile
+  console.log('Triggerning rebuild')
+  await runCommand('make main');
 }
 
 // Run command
@@ -61,7 +72,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('Connection closed.');
-
     iteration++;
   });
 
@@ -74,17 +84,11 @@ io.on('connection', (socket) => {
       dataCollectionComplete();
       return;
     }
-    
+
     const particleAmount = particleAmounts[iteration];
     console.log(`Running tests with ${particleAmount} particles.`);
 
-
-    // Modify config
-    fs.writeFileSync(path.join(process.cwd(), options.configFile), getConfig(particleAmount), "utf8");
-
-    // Trigger recompile
-    console.log('Triggerning rebuild')
-    await runCommand('make main');
+    await modifyAndRebuild(particleAmount);
 
     // Reload webpage
     socket.emit('reload');

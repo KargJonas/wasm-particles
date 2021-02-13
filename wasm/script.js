@@ -66,17 +66,14 @@ Module.onRuntimeInitialized = () => {
     }
   }
 
-  function truncate(number) {
-    return (number * 100 | 0) / 100
-  }
-
   let lastUpdate = 0;
   let updates = 0;
   let total = 0;
   let dataCollectionStart = Date.now();
+  const updateCount = 100;
 
   function update() {
-    if (updates >= 1) {
+    if (updates >= updateCount) {
       storeData();
       return;
     }
@@ -106,8 +103,8 @@ Module.onRuntimeInitialized = () => {
     const average = total / updates;
 
     const data = {
-      total: truncate(total),
-      average: truncate(average),
+      total: total,
+      average: average,
       updates,
       particleCount
     };

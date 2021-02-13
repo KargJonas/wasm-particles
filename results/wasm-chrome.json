@@ -1,38 +1,80 @@
 [
   {
-    "total": 50.7,
-    "average": 50.7,
-    "updates": 1,
-    "particleCount": 2000
+    "total": 2.2550000012415694,
+    "average": 0.022550000012415694,
+    "updates": 100,
+    "particleCount": 1
   },
   {
-    "total": 0.01,
-    "average": 0.01,
-    "updates": 1,
+    "total": 3.605000003517489,
+    "average": 0.03605000003517489,
+    "updates": 100,
     "particleCount": 10
   },
   {
-    "total": 0.03,
-    "average": 0.03,
-    "updates": 1,
+    "total": 18.409999999676074,
+    "average": 0.18409999999676074,
+    "updates": 100,
     "particleCount": 50
   },
   {
-    "total": 0.14,
-    "average": 0.14,
-    "updates": 1,
+    "total": 64.32500000300934,
+    "average": 0.6432500000300934,
+    "updates": 100,
     "particleCount": 100
   },
   {
-    "total": 0.52,
-    "average": 0.52,
-    "updates": 1,
+    "total": 242.95499999789172,
+    "average": 2.429549999978917,
+    "updates": 100,
     "particleCount": 200
   },
   {
-    "total": 1.18,
-    "average": 1.18,
-    "updates": 1,
+    "total": 523.2000000069092,
+    "average": 5.2320000000690925,
+    "updates": 100,
     "particleCount": 300
+  },
+  {
+    "total": 672.1850000012637,
+    "average": 6.721850000012637,
+    "updates": 100,
+    "particleCount": 500
+  },
+  {
+    "total": 1302.7800000008938,
+    "average": 13.027800000008938,
+    "updates": 100,
+    "particleCount": 1000
+  },
+  {
+    "total": 4961.34499999971,
+    "average": 49.6134499999971,
+    "updates": 100,
+    "particleCount": 2000
+  },
+  {
+    "total": 30949.219999994966,
+    "average": 309.49219999994966,
+    "updates": 100,
+    "particleCount": 5000
+  },
+  {
+    "total": 44863.58500000006,
+    "average": 448.6358500000006,
+    "updates": 100,
+    "particleCount": 6000
+  },
+  {
+    "total": 60916.52999999678,
+    "average": 609.1652999999678,
+    "updates": 100,
+    "particleCount": 7000
+  },
+  {
+    "total": 79366.79499999441,
+    "average": 793.6679499999441,
+    "updates": 100,
+    "particleCount": 8000
   }
 ]
