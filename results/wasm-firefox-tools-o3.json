@@ -1,73 +1,73 @@
 [
   {
-    "total": 10,
-    "average": 0.1,
-    "updates": 100,
-    "particleCount": 1
-  },
-  {
-    "total": 8,
-    "average": 0.08,
+    "total": 11,
+    "average": 0.11,
     "updates": 100,
     "particleCount": 10
   },
   {
-    "total": 12,
-    "average": 0.12,
+    "total": 21,
+    "average": 0.21,
     "updates": 100,
     "particleCount": 50
   },
   {
-    "total": 33,
-    "average": 0.33,
+    "total": 58,
+    "average": 0.58,
     "updates": 100,
     "particleCount": 100
   },
   {
-    "total": 110,
-    "average": 1.1,
+    "total": 235,
+    "average": 2.35,
     "updates": 100,
     "particleCount": 200
   },
   {
-    "total": 230,
-    "average": 2.3,
+    "total": 540,
+    "average": 5.4,
     "updates": 100,
     "particleCount": 300
   },
   {
-    "total": 589,
-    "average": 5.89,
+    "total": 679,
+    "average": 6.79,
     "updates": 100,
     "particleCount": 500
   },
   {
-    "total": 715,
-    "average": 7.15,
+    "total": 1258,
+    "average": 12.58,
     "updates": 100,
     "particleCount": 1000
   },
   {
-    "total": 1931,
-    "average": 19.31,
+    "total": 4586,
+    "average": 45.86,
     "updates": 100,
     "particleCount": 2000
   },
   {
-    "total": 12010,
-    "average": 120.1,
+    "total": 28770,
+    "average": 287.7,
     "updates": 100,
     "particleCount": 5000
   },
   {
-    "total": 23683,
-    "average": 236.83,
+    "total": 41368,
+    "average": 413.68,
+    "updates": 100,
+    "particleCount": 6000
+  },
+  {
+    "total": 56446,
+    "average": 564.46,
     "updates": 100,
     "particleCount": 7000
   },
   {
-    "total": 30779,
-    "average": 307.79,
+    "total": 73737,
+    "average": 737.37,
     "updates": 100,
     "particleCount": 8000
   }

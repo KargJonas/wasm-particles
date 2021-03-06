@@ -16,5 +16,4 @@ main: $(SRC_DIR)/main.c $(SRC_DIR)/main.h $(SRC_DIR)/lib.c $(SRC_DIR)/config.h
 	-emcc -s "EXTRA_EXPORTED_RUNTIME_METHODS=$(EERM)" \
 				-s "EXPORTED_FUNCTIONS=$(EF)" \
 				-s WASM=1 \
-				$(SRC_DIR)/main.c -o $(OUT_DIR)/compiled.js \
-				-O3
+				$(SRC_DIR)/main.c -o $(OUT_DIR)/compiled.js
