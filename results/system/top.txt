@@ -1,0 +1,58 @@
+top - 11:05:56 up  1:22,  1 user,  load average: 0.23, 0.48, 0.65
+Tasks: 198 total,   1 running, 197 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.6 us,  0.2 sy,  0.0 ni, 99.1 id,  0.1 wa,  0.1 hi,  0.0 si,  0.0 st
+MiB Mem :  15962.6 total,  11892.1 free,   2245.8 used,   1824.7 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.  13474.9 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  22545 jonas     20   0  506628  63136  42732 S   2.0   0.4   0:05.01 alacritty
+    747 root      20   0  148420  98724  41272 S   1.0   0.6   2:24.17 Xorg
+  21158 jonas     20   0  872088 282400 130164 S   1.0   1.7   0:13.86 chrome
+    751 root      20   0       0      0      0 S   0.3   0.0   0:41.78 nv_queue
+    777 jonas     20   0  163432  78872  30896 S   0.3   0.5   1:10.87 compton
+    778 jonas     20   0  837852  16784  14340 S   0.3   0.1   0:05.68 polybar
+   1228 jonas     20   0  509684  67508  42588 S   0.3   0.4   1:11.08 alacritty
+   1764 jonas     20   0 4590260 193184  56112 S   0.3   1.2   0:36.39 code
+   1939 jonas     20   0 5215536 243464  48756 S   0.3   1.5   1:11.42 code
+   1958 jonas     20   0 4475476  92044  47312 S   0.3   0.6   0:08.66 code
+  21279 jonas     20   0 4707800 165788  77272 S   0.3   1.0   0:02.48 chrome
+  21371 jonas     20   0   18.5g 140652  84632 S   0.3   0.9   0:03.90 chrome
+  23038 jonas     20   0 4659024 142452  90012 S   0.3   0.9   0:01.70 chrome
+      1 root      20   0  171044  10516   8028 S   0.0   0.1   0:00.76 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kthreadd
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H-kblockd
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq
+      9 root      20   0       0      0      0 S   0.0   0.0   0:00.17 ksoftirqd/0
+     10 root      -2   0       0      0      0 S   0.0   0.0   0:00.00 rcuc/0
+     11 root      -2   0       0      0      0 I   0.0   0.0   0:00.91 rcu_preempt
+     12 root      -2   0       0      0      0 S   0.0   0.0   0:00.00 rcub/0
+     13 root      rt   0       0      0      0 S   0.0   0.0   0:00.00 migration/0
+     14 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/0
+     16 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+     17 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+     18 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/1
+     19 root      rt   0       0      0      0 S   0.0   0.0   0:00.09 migration/1
+     20 root      -2   0       0      0      0 S   0.0   0.0   0:00.00 rcuc/1
+     21 root      20   0       0      0      0 S   0.0   0.0   0:00.15 ksoftirqd/1
+     23 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/1:0H-kblockd
+     24 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/2
+     25 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/2
+     26 root      rt   0       0      0      0 S   0.0   0.0   0:00.09 migration/2
+     27 root      -2   0       0      0      0 S   0.0   0.0   0:00.00 rcuc/2
+     28 root      20   0       0      0      0 S   0.0   0.0   0:00.12 ksoftirqd/2
+     29 root      20   0       0      0      0 I   0.0   0.0   0:00.11 kworker/2:0-rcu_gp
+     30 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/2:0H
+     31 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/3
+     32 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/3
+     33 root      rt   0       0      0      0 S   0.0   0.0   0:00.09 migration/3
+     34 root      -2   0       0      0      0 S   0.0   0.0   0:00.00 rcuc/3
+     35 root      20   0       0      0      0 S   0.0   0.0   0:00.12 ksoftirqd/3
+     37 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/3:0H-kblockd
+     38 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/4
+     39 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/4
+     40 root      rt   0       0      0      0 S   0.0   0.0   0:00.09 migration/4
+     41 root      -2   0       0      0      0 S   0.0   0.0   0:00.00 rcuc/4
+     42 root      20   0       0      0      0 S   0.0   0.0   0:00.12 ksoftirqd/4
+     44 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/4:0H-kblockd
