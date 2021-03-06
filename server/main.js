@@ -37,63 +37,65 @@ let iteration = 0;
 
 app.use(express.static(dir), express.json());
 
-let data = [];
+if (options.testing) {
+  let data = [];
 
-async function dataCollectionComplete() {
-  data.shift();
-  console.log('Data Collection Complete.');
-  fs.writeFileSync(options.resultsFile, JSON.stringify(data), "utf8");
-  console.log('Data saved to results file.');
-  await modifyAndRebuild(particleAmounts[0]);
-}
+  async function dataCollectionComplete() {
+    data.shift();
+    console.log('Data Collection Complete.');
+    fs.writeFileSync(options.resultsFile, JSON.stringify(data), "utf8");
+    console.log('Data saved to results file.');
+    await modifyAndRebuild(particleAmounts[0]);
+  }
 
-async function modifyAndRebuild(particleAmount) {
-  // Modify config
-  fs.writeFileSync(path.join(process.cwd(), options.configFile), getConfig(particleAmount), "utf8");
+  async function modifyAndRebuild(particleAmount) {
+    // Modify config
+    fs.writeFileSync(path.join(process.cwd(), options.configFile), getConfig(particleAmount), "utf8");
 
-  // Trigger recompile
-  console.log('Triggerning rebuild')
-  await runCommand('make main');
-}
+    // Trigger recompile
+    console.log('Triggerning rebuild')
+    await runCommand('make main');
+  }
 
-// Run command
-async function runCommand(command) {
-  try {
-    const { stdout, stderr } = await exec(command);
-    console.log('stdout:', stdout);
-    console.log('stderr:', stderr);
-  } catch (err) {
-    console.error(err);
+  // Run command
+  async function runCommand(command) {
+    try {
+      const { stdout, stderr } = await exec(command);
+      console.log('stdout:', stdout);
+      console.log('stderr:', stderr);
+    } catch (err) {
+      console.error(err);
+    };
   };
-};
 
-io.on('connection', (socket) => {
-  console.log('Connection established.');
+  io.on('connection', (socket) => {
+    console.log('Connection established.');
 
-  socket.on('disconnect', () => {
-    console.log('Connection closed.');
-    iteration++;
+    socket.on('disconnect', () => {
+      console.log('Connection closed.');
+      iteration++;
+    });
+
+    socket.on('get-data', async (dataPoint) => {
+      console.log('Received data.');
+      console.log(dataPoint);
+      data.push(dataPoint);
+
+      if (iteration >= particleAmounts.length) {
+        dataCollectionComplete();
+        return;
+      }
+
+      const particleAmount = particleAmounts[iteration];
+      console.log(`Running tests with ${particleAmount} particles.`);
+
+      await modifyAndRebuild(particleAmount);
+
+      // Reload webpage
+      socket.emit('reload');
+    })
   });
-
-  socket.on('get-data', async (dataPoint) => {
-    console.log('Received data.');
-    console.log(dataPoint);
-    data.push(dataPoint);
-
-    if (iteration >= particleAmounts.length) {
-      dataCollectionComplete();
-      return;
-    }
-
-    const particleAmount = particleAmounts[iteration];
-    console.log(`Running tests with ${particleAmount} particles.`);
-
-    await modifyAndRebuild(particleAmount);
-
-    // Reload webpage
-    socket.emit('reload');
-  })
-});
+}
 
 http.listen(options.port, () => {
   console.log('Listening ...');
