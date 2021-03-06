@@ -8,10 +8,6 @@ const PARTICLE_SIZE = 3;
 
 const socket = io.connect('http://localhost:5500');
 
-socket.on('connect', (data) => {
-  socket.emit('join', 'Hello World from client');
-});
-
 socket.on('reload', () => {
   console.log('reload')
   window.location.reload();
