@@ -8,7 +8,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 var fs = require("fs");
 
-const getConfig = (particleCount) => `
+const getConfigWASM = (particleCount) => `
 #define PARTICLE_COUNT ${particleCount}   // Number of particles
 #define BOUNDS_X 800          // Height of canvas
 #define BOUNDS_Y 800          // Width of canvas
@@ -21,12 +21,26 @@ const getConfig = (particleCount) => `
 #define MAX_DIST 200          // Max effective force distance (performance)
 `;
 
+const getConfigJS = (particleCount) => `
+const PARTICLE_COUNT = ${particleCount}   // Number of particles
+const BOUNDS_X = 800          // Height of canvas
+const BOUNDS_Y = 800          // Width of canvas
+
+const ELECTROMAG_CONST = 15   // Electromagnetic constant
+const MAX_FORCE = 0.1         // Strongest force allowed in the system
+const ELASTICITY = 0.8        // Energy retained after rebound
+const PARTICLE_DIAMETER = 6   // Particle diameter
+const FRICTION = 0.9          // Amount of velocity retained after each simulation step
+const MAX_DIST = 200          // Max effective force distance (performance)
+`
+
 program
   .option('--testing', null, false)
   .option('--dir <path>')
   .option('--results-file <path>')
   .option('--port <port>')
   .option('--config-file <path>')
+  .option('--js', null, false)
   .parse();
 
 const options = program.opts();
@@ -36,6 +50,8 @@ const particleAmounts = [1, 10, 50, 100, 200, 300, 500, 1000, 2000, 5000, 6000, 
 let iteration = 0;
 
 app.use(express.static(dir), express.json());
+
+const getConfig = options.js ? getConfigJS : getConfigWASM;
 
 if (options.testing) {
   let data = [];
@@ -51,6 +67,9 @@ if (options.testing) {
   async function modifyAndRebuild(particleAmount) {
     // Modify config
     fs.writeFileSync(path.join(process.cwd(), options.configFile), getConfig(particleAmount), "utf8");
+
+    // No need to rebuild for JS
+    if (options.js) return;
 
     // Trigger recompile
     console.log('Triggerning rebuild')

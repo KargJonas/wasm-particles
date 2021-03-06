@@ -4,6 +4,13 @@ const realFpsCounter = document.querySelector('#real-fps-counter');
 const cnv = document.querySelector('canvas');
 const ctx = cnv.getContext('2d');
 
+const socket = io.connect('http://localhost:5500');
+
+socket.on('reload', () => {
+  console.log('reload')
+  window.location.reload();
+});
+
 // This array contains detailed information of each particle
 const particles = [];
 
@@ -35,19 +42,44 @@ function draw() {
 }
 
 let lastUpdate = 0;
+let updates = 0;
+let total = 0;
+let dataCollectionStart = Date.now();
+const updateCount = 100;
 
 function update() {
+  if (updates >= updateCount) {
+    storeData();
+    return;
+  }
+
   requestAnimationFrame(update);
+  updates++;
 
   const performance = getPerformance(updateParticles);
-  const realPerformance = Date.now() - lastUpdate;
+  // const realPerformance = Date.now() - lastUpdate;
 
-  mspfCounter.innerHTML = Math.round(performance * 100, 4) / 100;
-  fpsCounter.innerHTML = 1000 / performance | 0;
-  realFpsCounter.innerHTML = 1000 / realPerformance | 0;
+  // mspfCounter.innerHTML = Math.round(performance * 100, 4) / 100;
+  // fpsCounter.innerHTML = 1000 / performance | 0;
+  // realFpsCounter.innerHTML = 1000 / realPerformance | 0;
 
-  draw();
-  lastUpdate = Date.now();
+  total += performance;
+
+  // draw();
+  // lastUpdate = Date.now();
+}
+
+function storeData() {
+  const average = total / updates;
+
+  const data = {
+    total: total,
+    average: average,
+    updates,
+    particleCount: PARTICLE_COUNT
+  };
+
+  socket.emit('get-data', data);
 }
 
 update();

@@ -1,0 +1,80 @@
+[
+  {
+    "total": 1.1199999994460086,
+    "average": 0.011199999994460086,
+    "updates": 100,
+    "particleCount": 1
+  },
+  {
+    "total": 12.810000000172295,
+    "average": 0.12810000000172295,
+    "updates": 100,
+    "particleCount": 10
+  },
+  {
+    "total": 8.219999998800631,
+    "average": 0.08219999998800631,
+    "updates": 100,
+    "particleCount": 50
+  },
+  {
+    "total": 29.16999999933978,
+    "average": 0.2916999999933978,
+    "updates": 100,
+    "particleCount": 100
+  },
+  {
+    "total": 102.67999999859967,
+    "average": 1.0267999999859967,
+    "updates": 100,
+    "particleCount": 200
+  },
+  {
+    "total": 198.18500000110362,
+    "average": 1.9818500000110362,
+    "updates": 100,
+    "particleCount": 300
+  },
+  {
+    "total": 407.4849999969956,
+    "average": 4.074849999969956,
+    "updates": 100,
+    "particleCount": 500
+  },
+  {
+    "total": 777.3650000031012,
+    "average": 7.773650000031012,
+    "updates": 100,
+    "particleCount": 1000
+  },
+  {
+    "total": 1433.3199999982753,
+    "average": 14.333199999982753,
+    "updates": 100,
+    "particleCount": 2000
+  },
+  {
+    "total": 8603.884999998627,
+    "average": 86.03884999998627,
+    "updates": 100,
+    "particleCount": 5000
+  },
+  {
+    "total": 11790.929999996024,
+    "average": 117.90929999996024,
+    "updates": 100,
+    "particleCount": 6000
+  },
+  {
+    "total": 17221.295000001646,
+    "average": 172.21295000001646,
+    "updates": 100,
+    "particleCount": 7000
+  },
+  {
+    "total": 23181.004999999004,
+    "average": 231.81004999999004,
+    "updates": 100,
+    "particleCount": 8000
+  }
+]

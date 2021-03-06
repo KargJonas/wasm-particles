@@ -77,7 +77,7 @@ Module.onRuntimeInitialized = () => {
     requestAnimationFrame(update);
     updates++;
 
-    getParticlePositions();
+    // getParticlePositions();
 
     const performance = getPerformance(updateParticles);
     // const now = Date.now();
