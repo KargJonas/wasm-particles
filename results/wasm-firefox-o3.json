@@ -1,0 +1,80 @@
+[
+  {
+    "total": 10,
+    "average": 0.1,
+    "updates": 100,
+    "particleCount": 1
+  },
+  {
+    "total": 4,
+    "average": 0.04,
+    "updates": 100,
+    "particleCount": 10
+  },
+  {
+    "total": 7,
+    "average": 0.07,
+    "updates": 100,
+    "particleCount": 50
+  },
+  {
+    "total": 16,
+    "average": 0.16,
+    "updates": 100,
+    "particleCount": 100
+  },
+  {
+    "total": 48,
+    "average": 0.48,
+    "updates": 100,
+    "particleCount": 200
+  },
+  {
+    "total": 100,
+    "average": 1,
+    "updates": 100,
+    "particleCount": 300
+  },
+  {
+    "total": 248,
+    "average": 2.48,
+    "updates": 100,
+    "particleCount": 500
+  },
+  {
+    "total": 739,
+    "average": 7.39,
+    "updates": 100,
+    "particleCount": 1000
+  },
+  {
+    "total": 1031,
+    "average": 10.31,
+    "updates": 100,
+    "particleCount": 2000
+  },
+  {
+    "total": 5277,
+    "average": 52.77,
+    "updates": 100,
+    "particleCount": 5000
+  },
+  {
+    "total": 7624,
+    "average": 76.24,
+    "updates": 100,
+    "particleCount": 6000
+  },
+  {
+    "total": 10254,
+    "average": 102.54,
+    "updates": 100,
+    "particleCount": 7000
+  },
+  {
+    "total": 13602,
+    "average": 136.02,
+    "updates": 100,
+    "particleCount": 8000
+  }
+]

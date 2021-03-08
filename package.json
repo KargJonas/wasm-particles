@@ -1,0 +1,32 @@
+{
+  "name": "wasm-particles",
+  "version": "1.0.0",
+  "description": "WASM and JS implementations of the same particle system for performance testing.",
+  "main": "server/main.js",
+  "scripts": {
+    "serve-wasm": "node server/main.js --dir='./wasm' --port=5500",
+    "serve-js": "node server/main.js --dir='./js' --port=5500",
+    "test-wasm-chrome": "node server/main.js --dir='./wasm' --results-file='./results/wasm-chrome.json' --config-file='wasm/src/config.h' --port=5500 --testing",
+    "test-wasm-chrome-o3": "node server/main.js --dir='./wasm' --results-file='./results/wasm-chrome-o3.json' --config-file='wasm/src/config.h' --port=5500 --testing",
+    "test-wasm-chrome-tools-o3": "node server/main.js --dir='./wasm' --results-file='./results/wasm-chrome-tools-o3.json' --config-file='wasm/src/config.h' --port=5500 --testing",
+    "test-wasm-firefox": "node server/main.js --dir='./wasm' --results-file='./results/wasm-firefox.json' --config-file='wasm/src/config.h' --port=5500 --testing",
+    "test-wasm-firefox-tools-o3": "node server/main.js --dir='./wasm' --results-file='./results/wasm-firefox-tools-o3.json' --config-file='wasm/src/config.h' --port=5500 --testing",
+    "test-js-chrome": "node server/main.js --dir='./js' --results-file='./results/js-chrome.json' --config-file='js/src/config.js' --port=5500 --testing --js",
+    "test-js-firefox": "node server/main.js --dir='./js' --results-file='./results/js-firefox.json' --config-file='js/src/config.js' --port=5500 --testing --js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KargJonas/wasm-particles.git"
+  },
+  "author": "Jonas Karg",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/KargJonas/wasm-particles/issues"
+  },
+  "homepage": "https://github.com/KargJonas/wasm-particles#readme",
+  "dependencies": {
+    "commander": "^7.0.0",
+    "express": "^4.17.1",
+    "socket.io": "^3.1.2"
+  }
+}
