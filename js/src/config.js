@@ -1,5 +1,5 @@
 
-const PARTICLE_COUNT = 1   // Number of particles
+const PARTICLE_COUNT = 1      // Number of particles
 const BOUNDS_X = 800          // Height of canvas
 const BOUNDS_Y = 800          // Width of canvas
 

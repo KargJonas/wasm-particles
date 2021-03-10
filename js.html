@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Particles</title>
+  </head>
+  <body>
+    <canvas width="800" height="800"></canvas>
+    <script>
+      const PARTICLE_COUNT = 100;   // Number of particles
+      const BOUNDS_X = 800;         // Height of canvas
+      const BOUNDS_Y = 800;         // Width of canvas
+
+      const ELECTROMAG_CONST = 15;  // Electromagnetic constant
+      const MAX_FORCE = 0.1;        // Strongest force allowed in the system
+      const ELASTICITY = 0.8;       // Energy retained after rebound
+      const PARTICLE_DIAMETER = 6;  // Particle diameter
+      const FRICTION = 0.9;         // Amount of velocity retained after each simulation step
+      const MAX_DIST = 200;         // Max effective force distance (performance)
+
+      function initializeParticleSystem() {
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const position = {
+            x: Math.random() * BOUNDS_X,
+            y: Math.random() * BOUNDS_Y
+          };
+
+          const velocity = { x: 0, y: 0 };
+          const charge = Math.random() * 2 < 1 ? -1 : 1;
+
+          const newParticle = {
+            position,
+            velocity,
+            charge
+          };
+
+          particles[i] = newParticle;
+        }
+      }
+
+      function applyForce(particleA, particleB) {
+        const AB = {
+          x: particleB.position.x - particleA.position.x,
+          y: particleB.position.y - particleA.position.y
+        };
+
+        const distance = Math.sqrt(Math.pow(AB.x, 2) + Math.pow(AB.y, 2));
+
+        // No force applied if too close
+        if (distance < PARTICLE_DIAMETER || distance > MAX_DIST) return;
+
+        // Electromagnetic force:
+        // F = k * (Qa * Qb) / r ^ 2
+        let force =
+          (ELECTROMAG_CONST * -particleA.charge * particleB.charge) /
+          Math.pow(distance, 2);
+
+        if (force > MAX_FORCE) force = MAX_FORCE;
+
+        force /= distance;
+
+        const normalizedAB = {
+          x: AB.x * force,
+          y: AB.y * force
+        };
+
+        particleA.velocity.x += normalizedAB.x;
+        particleA.velocity.y += normalizedAB.y;
+
+        particleB.velocity.x -= normalizedAB.x;
+        particleB.velocity.y -= normalizedAB.y;
+      }
+
+      function updateParticles() {
+        for (let i = 0; i < PARTICLE_COUNT - 1; i++) {
+          particles[i].velocity.x *= FRICTION;
+          particles[i].velocity.y *= FRICTION;
+
+          for (let j = i + 1; j < PARTICLE_COUNT; j++) {
+            applyForce(particles[i], particles[j]);
+          }
+        }
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          particles[i].position.x += particles[i].velocity.x;
+
+          if (
+            particles[i].position.x < 0 ||
+            particles[i].position.x > BOUNDS_X
+          ) {
+            particles[i].position.x -= particles[i].velocity.x;
+            particles[i].velocity.x *= -ELASTICITY;
+          }
+
+          particles[i].position.y += particles[i].velocity.y;
+
+          if (
+            particles[i].position.y < 0 ||
+            particles[i].position.y > BOUNDS_Y
+          ) {
+            particles[i].position.y -= particles[i].velocity.y;
+            particles[i].velocity.y *= -ELASTICITY;
+          }
+        }
+      }
+
+      const cnv = document.querySelector("canvas");
+      const ctx = cnv.getContext("2d");
+      const particles = [];
+
+      initializeParticleSystem();
+
+      function fastDraw() {
+        ctx.clearRect(0, 0, cnv.width, cnv.height);
+
+        for (let particle of particles) {
+          ctx.fillRect(
+            particle[0],
+            particle[1],
+            PARTICLE_DIAMETER,
+            PARTICLE_DIAMETER
+          );
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, cnv.width, cnv.height);
+
+        for (let particle of particles) {
+          ctx.beginPath();
+          ctx.fillStyle = particle.charge > 0 ? "red" : "blue";
+          ctx.arc(
+            particle.position.x,
+            particle.position.y,
+            PARTICLE_DIAMETER / 2,
+            0,
+            7
+          );
+          ctx.fill();
+        }
+      }
+
+      function update() {
+        requestAnimationFrame(update);
+        updateParticles();
+        draw();
+      }
+
+      update();
+    </script>
+  </body>
+</html>
