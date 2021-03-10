@@ -1716,6 +1716,12 @@ var asm = createWasm();
 var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__wasm_call_ctors");
 
 /** @type {function(...*):?} */
+var _main = Module["_main"] = createExportWrapper("main");
+
+/** @type {function(...*):?} */
+var _updateParticles = Module["_updateParticles"] = createExportWrapper("updateParticles");
+
+/** @type {function(...*):?} */
 var _initializeParticleSystem = Module["_initializeParticleSystem"] = createExportWrapper("initializeParticleSystem");
 
 /** @type {function(...*):?} */
@@ -1726,12 +1732,6 @@ var _getParticleArraySize = Module["_getParticleArraySize"] = createExportWrappe
 
 /** @type {function(...*):?} */
 var _getParticleStructSize = Module["_getParticleStructSize"] = createExportWrapper("getParticleStructSize");
-
-/** @type {function(...*):?} */
-var _main = Module["_main"] = createExportWrapper("main");
-
-/** @type {function(...*):?} */
-var _updateParticles = Module["_updateParticles"] = createExportWrapper("updateParticles");
 
 /** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");

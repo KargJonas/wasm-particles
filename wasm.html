@@ -12,8 +12,9 @@
     <script src="build/compiled.js"></script>
 
     <script>
-      const cnv = document.querySelector("canvas");
-      const ctx = cnv.getContext("2d")
+      const cnv = document.querySelector('canvas');
+      const ctx = cnv.getContext('2d');
+
       const PARTICLE_SIZE = 3;
 
       Module.onRuntimeInitialized = () => {
@@ -37,9 +38,9 @@
             const pointer = particleArrayPointer + i * particleStructSize;
 
             particles[i] = [
-              Module.getValue(pointer, "float"),
-              Module.getValue(pointer + 4, "float"),
-              Module.getValue(pointer + 16, "float")
+              Module.getValue(pointer, 'float'),
+              Module.getValue(pointer + 4, 'float'),
+              Module.getValue(pointer + 16, 'float')
             ];
           }
         }
@@ -49,7 +50,7 @@
 
           for (let particle of particles) {
             ctx.beginPath();
-            ctx.fillStyle = particle[2] > 0 ? "red" : "blue";
+            ctx.fillStyle = particle[2] > 0 ? 'red' : 'blue';
             ctx.arc(particle[0], particle[1], PARTICLE_SIZE, 0, 7);
             ctx.fill();
           }
